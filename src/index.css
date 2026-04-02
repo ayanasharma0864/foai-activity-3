@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-color: #050505;
+  --surface: #111116;
+  --surface-hover: #1A1A22;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(37, 99, 235, 0.5);
+  
+  --primary: #2563EB;
+  --primary-hover: #3B82F6;
+  --accent: #33FF00;
+  
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #475569;
+  
+  --error-bg: rgba(239, 68, 68, 0.1);
+  --error-text: #F87171;
+  --error-border: rgba(239, 68, 68, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+}
