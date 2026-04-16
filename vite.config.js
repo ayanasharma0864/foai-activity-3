@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/foai-activity-3/",
+  base: process.env.GITHUB_ACTIONS ? "/foai-activity-3/" : "/",
   plugins: [react()],
   server: {
     proxy: {
