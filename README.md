@@ -1,4 +1,4 @@
-# VisionCraft 🎨
+# VisionCraft (foai-activity-3) 🎨
 
 A premium, bento-grid text-to-image application powered by the Hugging Face FLUX.1 model.
 
