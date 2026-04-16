@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import './App.css';
 
+const INSPIRATIONS = [
+  { id: 1, label: "Cyberpunk", prompt: "A cyberpunk city at night with neon signs, rain-slicked streets, and high-tech flying cars, cinematic style, 8k." },
+  { id: 2, label: "Ethereal", prompt: "An ethereal forest with glowing bioluminescent plants, floating islands, fantasy concept art, dreamy lighting." },
+  { id: 3, label: "Astronaut", prompt: "A lone astronaut sitting on a cliff on Mars looking at a Earth-like planet in the sky, hyper-realistic, epic scale." },
+  { id: 4, label: "Vintage", prompt: "A vintage 1950s film noir scene, a detective in a trench coat, rainy city streets, dramatic shadows, black and white." }
+];
+
 function App() {
   const [prompt, setPrompt] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
@@ -16,18 +23,20 @@ function App() {
     setError(null);
 
     try {
-      const API_KEY = import.meta.env.VITE_HF_API_KEY;
+      const API_KEY = import.meta.env.VITE_HF_API_KEY || import.meta.env.VITE_HF_TOKEN; 
       
       if (!API_KEY) {
-        throw new Error("Missing API Key. Please add VITE_HF_API_KEY to your .env file.");
+        throw new Error("Missing API Key. Please add VITE_HF_TOKEN to your .env file.");
       }
 
       const response = await fetch(
-        "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0",
+        "/api-hf/hf-inference/models/black-forest-labs/FLUX.1-schnell",
         {
           headers: {
             Authorization: `Bearer ${API_KEY}`,
             "Content-Type": "application/json",
+            "X-Wait-For-Model": "true",
+            "X-Use-Cache": "false",
           },
           method: "POST",
           body: JSON.stringify({ inputs: prompt }),
@@ -107,6 +116,22 @@ function App() {
               )}
             </button>
           </form>
+
+          <div className="inspiration-container">
+            <h3>Prompt Synthesis Ideas</h3>
+            <div className="inspiration-grid">
+              {INSPIRATIONS.map((item) => (
+                <button 
+                  key={item.id} 
+                  className="inspiration-chip"
+                  onClick={() => setPrompt(item.prompt)}
+                  disabled={isGenerating}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
 
           {error && (
             <div className="error-banner">
