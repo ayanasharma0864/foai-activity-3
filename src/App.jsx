@@ -26,11 +26,16 @@ function App() {
       const API_KEY = import.meta.env.VITE_HF_API_KEY || import.meta.env.VITE_HF_TOKEN; 
       
       if (!API_KEY) {
-        throw new Error("Missing API Key. Please add VITE_HF_TOKEN to your .env file.");
+        throw new Error("Missing API Key. Please add VITE_HF_TOKEN to your environment settings.");
       }
 
+      // Automatically switch between local proxy (DEV) and direct URL (PROD)
+      const BASE_URL = import.meta.env.DEV 
+        ? "/api-hf/hf-inference" 
+        : "https://router.huggingface.co/hf-inference";
+
       const response = await fetch(
-        "/api-hf/hf-inference/models/black-forest-labs/FLUX.1-schnell",
+        `${BASE_URL}/models/black-forest-labs/FLUX.1-schnell`,
         {
           headers: {
             Authorization: `Bearer ${API_KEY}`,
